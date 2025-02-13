@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /sistema_escolar_poo
+
+# Redireciona tudo para index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
