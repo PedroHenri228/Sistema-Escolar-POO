@@ -37,4 +37,25 @@ class ClassModel
         }
     }
 
+    public function insert($data) {
+        if (!$this->conn) {
+            error_log("Erro: Conexão não inicializada.");
+            return false;
+        }
+
+        try {
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmp = $this->conn->prepare("INSERT INTO turmas (codigo, nome, professor_codigo) VALUES (:codigo, :nome, :professor_codigo)");
+            $stmp->bindParam(':codigo', $data['codigo']);
+            $stmp->bindParam(':nome', $data['nome']);
+            $stmp->bindParam(':professor_codigo', $data['professor_codigo']);
+            $stmp->execute();
+
+            return true;
+        } catch (PDOException $e) {
+            error_log("Erro ao inserir turma: " . $e->getMessage());
+            return false;
+        }
+    }
+
 }
