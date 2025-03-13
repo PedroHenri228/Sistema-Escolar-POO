@@ -58,4 +58,24 @@ class ClassModel
         }
     }
 
+
+    public function delete($id) {
+        if (!$this->conn) {
+            error_log("Erro: Conexão não inicializada.");
+            return false;
+        }
+
+        try {
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmp = $this->conn->prepare("DELETE FROM turmas WHERE codigo = :codigo");
+            $stmp->bindParam(':codigo', $id);
+            $stmp->execute();
+
+            return true;
+        } catch (PDOException $e) {
+            error_log("Erro ao deletar turma: " . $e->getMessage());
+            return false;
+        }
+    }
+
 }

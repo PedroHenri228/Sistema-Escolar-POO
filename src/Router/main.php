@@ -8,12 +8,12 @@ Routes::get('/nova_turma', 'ClassController@registerPage');
 Routes::get('/login', 'UserController@loginPage'); 
 Routes::get('/registrar', 'UserController@registerPage'); 
 Routes::get('/logout', 'UserController@logout'); 
+Routes::get("/delete/{id}", "ClassController@delete");
 
 
 Routes::post('/registrar', 'UserController@registrar'); 
 Routes::post('/login', 'UserController@login');
 Routes::post('/nova_turma', 'ClassController@register');
-
 
 $method = $_SERVER['REQUEST_METHOD'];
 

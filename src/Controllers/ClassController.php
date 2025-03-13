@@ -43,6 +43,7 @@ class ClassController {
 
             if ($this->classModel->insert($data)) {
                 header('Location: turmas');
+                exit;
             } else {
                 echo "Erro ao inserir turma!";
             }
@@ -53,6 +54,26 @@ class ClassController {
     public function registerPage() {
         $this->render('ClassRegister');
     }
+
+
+    public function delete($id) {
+        if ($id) {
+            try {
+
+                $this->classModel->delete($id);
+                header('Location: ../turmas');
+                exit;
+                
+            } catch (\Exception $e) {
+
+                error_log("Erro ao deletar turma: " . $e->getMessage());
+            }
+
+        } else {
+            echo "Identificador não encontrado!";
+        }
+    }
+    
 
     private function render($view, $data = []) {
         extract($data);
