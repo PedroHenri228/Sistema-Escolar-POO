@@ -32,7 +32,7 @@
                         <td><?= htmlspecialchars($class['codigo']) ?></td>
                         <td><?= htmlspecialchars($class['nome']) ?></td>
                         <td>
-                            <button class="btn btn-info">Ver Atividades</button>
+                            <a href="atividades/<?= urlencode($class['codigo']) ?>" class="btn btn-info">Ver atividades</a>
                         </td>
                         <td>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir<?= $class['codigo'] ?>">
@@ -43,8 +43,6 @@
                             <button class="btn btn-success">Cadastrar Curso</button>
                         </td>
                     </tr>
-
-                    <!-- Modal Exclusão - ID Único -->
                     <div class="modal fade" id="modalExcluir<?= $class['codigo'] ?>" tabindex="-1" aria-labelledby="modalLabel<?= $class['codigo'] ?>"
                         aria-hidden="true">
                         <div class="modal-dialog">
