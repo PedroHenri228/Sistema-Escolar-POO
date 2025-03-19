@@ -32,7 +32,7 @@
                         <td><?= htmlspecialchars($class['codigo']) ?></td>
                         <td><?= htmlspecialchars($class['nome']) ?></td>
                         <td>
-                            <a href="atividades/<?= urlencode($class['codigo']) ?>" class="btn btn-info">Ver atividades</a>
+                            <a href="atividades?codigo=<?= urlencode($class['codigo']) ?>" class="btn btn-info">Ver atividades</a>
                         </td>
                         <td>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir<?= $class['codigo'] ?>">

@@ -11,9 +11,16 @@
 </head>
 
 <body>
-
     <h2>Lista de Turmas</h2>
-    <a href="../nova_atividade" class="btn btn-primary mb-3">Cadastrar nova atividade</a>
+
+    <?php if (!empty($results)): ?>
+        <div class="mb-3">
+            <?php foreach (array_unique(array_column($results, 'turma_codigo')) as $turmaCodigo): ?>
+                <a href="nova_atividade?codigo=<?= urlencode($turmaCodigo) ?>" class="btn btn-primary">Cadastrar nova
+                    atividade</a>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 
     <table class="table table-bordered">
         <thead class="table-dark">

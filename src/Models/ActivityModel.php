@@ -18,6 +18,13 @@ class ActivityModel {
     }
 
     public function getElementsById($id) {
+
+        if ($id == null) {
+            return [];
+        }else {
+            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        }
+
         if (!$this->conn) {
             error_log("Erro: Conexão não inicializada.");
             return [];
@@ -34,6 +41,28 @@ class ActivityModel {
             error_log("Erro ao buscar atividades: " . $e->getMessage());
             return [];
         }
+    }
+
+    public function insert($data) {
+            
+            if (!$this->conn) {
+                error_log("Erro: Conexão não inicializada.");
+                return false;
+            }
+    
+            try {
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmp = $this->conn->prepare("INSERT INTO atividades (descricao, data, turma_codigo) VALUES (:descricao, :data, :turma_codigo)");
+                $stmp->bindParam(':descricao', $data['descricao']);
+                $stmp->bindParam(':data', $data['date']);
+                $stmp->bindParam(':turma_codigo', $_POST['turma_codigo']);
+                $stmp->execute();
+    
+                return true;
+            } catch (PDOException $e) {
+                error_log("Erro ao inserir atividade: " . $e->getMessage());
+                return false;
+            }
     }
 
 

@@ -5,12 +5,12 @@ use App\Http\Routes;
 Routes::get('/', 'HomeController@index'); 
 Routes::get('/turmas', 'ClassController@list');
 Routes::get('/nova_turma', 'ClassController@registerPage');
-Routes::get('/nova_atividade', 'ActivityController@registerPage');
 Routes::get("/delete/{id}", "ClassController@delete");
-Routes::get('/atividades/{id}', 'ActivityController@list');
+Routes::get('/atividades', 'ActivityController@list');
+Routes::get('/nova_atividade', 'ActivityController@registerPage');
 
 Routes::post('/nova_turma', 'ClassController@register');
-Routes::post('/nova_atividade', 'ActivityController@register');
+Routes::post('/nova_atividade', 'ActivityController@registerPage');
 
 $method = $_SERVER['REQUEST_METHOD'];
 

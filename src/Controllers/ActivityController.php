@@ -8,6 +8,7 @@ class ActivityController {
 
     private $activityModel;
     private $classArray = [];
+    private $idActivity;
 
     public function __construct() {
 
@@ -15,8 +16,12 @@ class ActivityController {
 
     }
 
-    public function list($id) {
+    public function list() {
             
+            $id = $_GET['codigo'] ?? null;
+
+            $this->idActivity = $id;
+
             $activities = $this->activityModel->getElementsById($id);
     
             $activityArray = [];
@@ -33,29 +38,38 @@ class ActivityController {
             $this->render('activity', ['results' => $activityArray]);
     }
 
-    public function register() {
-
+    
+    public function registerPage() {
+        $id = $_GET['codigo'] ?? null;
+        
+        if ($id) {
+            $this->render("ActivityRegister", ['id' => $id]);
+        } else {
+            echo "Erro: Código da turma não informado.";
+            return; // Encerra a execução para evitar código desnecessário
+        }
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (empty($_POST['descricao']) || empty($_POST['date']) || empty($_POST['turma_codigo'])) {
+                echo "Erro: Todos os campos são obrigatórios!";
+                return;
+            }
+    
             $data = [
-                'codigo' => $_POST['codigo'],
-                'descricao' => $_POST['descricao'],
-                'data' => $_POST['data'],
+                'descricao' => trim($_POST['descricao']),
+                'date' => $_POST['date'],
                 'turma_codigo' => $_POST['turma_codigo'],
             ];
-
+    
             if ($this->activityModel->insert($data)) {
-                header('Location: /atividades/' . $data['turma_codigo']);
+                header('Location: atividades?codigo=' . urlencode($data['turma_codigo']));
                 exit;
             } else {
                 echo "Erro ao inserir atividade!";
             }
         }
-
     }
     
-    public function registerPage() {
-        $this->render("ActivityRegister");
-    }
 
     private function render($view, $data = []) {
         extract($data);
