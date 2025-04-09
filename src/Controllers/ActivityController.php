@@ -70,6 +70,27 @@ class ActivityController {
         }
     }
     
+    public function delete($id) {
+        if ($id) {
+            try {
+
+                
+                $this->activityModel->delete($id);
+
+                $idByclass = $this->activityModel->getIdbyClass($id);
+
+                header('Location: ../atividades?codigo=' . $idByclass['turma_codigo']);
+                exit;
+                
+            } catch (\Exception $e) {
+
+                error_log("Erro ao deletar atividade: " . $e->getMessage());
+            }
+
+        } else {
+            echo "Identificador não encontrado!";
+        }
+    }
 
     private function render($view, $data = []) {
         extract($data);

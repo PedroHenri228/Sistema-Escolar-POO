@@ -6,6 +6,8 @@ Routes::get('/', 'HomeController@index');
 Routes::get('/turmas', 'ClassController@list');
 Routes::get('/nova_turma', 'ClassController@registerPage');
 Routes::get("/delete/{id}", "ClassController@delete");
+Routes::get('/delete_activity/{id}', 'ActivityController@delete');
+Routes::get('/editar/{id}', 'ClassController@editPage');
 Routes::get('/atividades', 'ActivityController@list');
 Routes::get('/nova_atividade', 'ActivityController@registerPage');
 

@@ -8,8 +8,8 @@
 <body>
     <form action="nova_atividade?codigo=<?= urlencode($id) ?>" method="post">
         <?php if (!empty($id)): ?>
-            <label for="descricao">Descrição</label>
-            <input type="text" name="descricao" id="descricao" required>
+            <label for="descricao">Descrição</label><br>
+            <textarea name="descricao" id="descricao" required placeholder="Digite a descrição aqui..."></textarea>
             <br>
             <label for="date">Data</label>
             <input type="date" name="date" id="date" required>

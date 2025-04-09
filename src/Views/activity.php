@@ -28,7 +28,8 @@
                 <th>Identificação da Ativiade</th>
                 <th>Descrição</th>
                 <th>Data</th>
-
+                <th>Exclusão de Atividades</th>
+                <th>Edição de Atividades</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,35 @@
                         <td><?= htmlspecialchars($class['codigo']) ?></td>
                         <td><?= htmlspecialchars($class['descricao']) ?></td>
                         <td><?= htmlspecialchars($class['data']) ?></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#modalExcluir<?= $class['codigo'] ?>">
+                                Apagar Atividade
+                            </button>
+                        </td>
+                        <div class="modal fade" id="modalExcluir<?= $class['codigo'] ?>" tabindex="-1" aria-labelledby="modalLabel<?= $class['codigo'] ?>"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="modalLabel<?= $class['codigo'] ?>">Confirmar Exclusão</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Deseja realmente apagar a atividade ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="delete_activity/<?= urlencode($class['codigo']) ?>" class="btn btn-danger">Apagar</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <td>
+                            <a href="#" class="btn btn-secondary">Editar Atividade</a>
+                        </td>
                     </tr>
 
                 <?php endforeach; ?>

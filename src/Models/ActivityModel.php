@@ -65,6 +65,37 @@ class ActivityModel {
             }
     }
 
+    public function delete($id) {
+        if (!$this->conn) {
+            error_log("Erro: Conexão não inicializada.");
+            return false;
+        }
 
+        try {
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmp = $this->conn->prepare("DELETE FROM atividades WHERE codigo = :codigo");
+            $stmp->bindParam(':codigo', $id);
+            $stmp->execute();
+
+            return true;
+        } catch (PDOException $e) {
+            error_log("Erro ao deletar turma: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getIdbyClass($atividadeId) {
+        if (!$atividadeId) {
+            return false;
+        }
+    
+        $atividadeId = filter_var($atividadeId, FILTER_SANITIZE_NUMBER_INT);
+    
+        $stmp = $this->conn->prepare("SELECT turma_codigo FROM atividades WHERE codigo = :id");
+        $stmp->bindParam(':id', $atividadeId, PDO::PARAM_INT);
+        $stmp->execute();
+    
+        return $stmp->fetchColumn();
+    }
 
 }
